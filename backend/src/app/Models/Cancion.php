@@ -66,7 +66,7 @@ class Cancion extends Model
     protected function ubicacion(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? '/storage/' . $value : null,
+            get: fn($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : null,
         );
     }
 
@@ -81,7 +81,7 @@ class Cancion extends Model
     protected function portada(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? '/storage/' . $value : '/assets/portada-default.jpg',
+            get: fn($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : '/assets/portada-default.jpg',
         );
     }
 

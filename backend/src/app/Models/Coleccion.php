@@ -56,7 +56,7 @@ class Coleccion extends Model
     protected function portada(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? (str_starts_with($value, 'http') ? $value : '/storage/' . $value) : null,
+            get: fn ($value) => $value ? (str_starts_with($value, 'http') || str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : null,
         );
     }
 
