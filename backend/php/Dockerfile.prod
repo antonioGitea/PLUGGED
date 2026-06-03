@@ -34,12 +34,12 @@ RUN apk add --no-cache \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Límites de subida
-COPY uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini
+COPY backend/php/uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini
 
 WORKDIR /var/www
 
 # Copiar código Laravel
-COPY src .
+COPY backend/src .
 
 # Instalar dependencias PHP
 RUN composer install --optimize-autoloader --no-dev
