@@ -29,7 +29,7 @@ export const useLike = () => {
 
         try {
             // Llamar al endpoint del backend que sincroniza automáticamente con "Me gusta"
-            const response = await fetch(`http://localhost:8000/api/canciones/${cancionId}/like`, {
+            const response = await fetch(`/api/canciones/${cancionId}/like`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

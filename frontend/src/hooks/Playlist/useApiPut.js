@@ -25,7 +25,7 @@ const useApiPut = async (id, playlistEditada, token) => {
     }
 
     try {
-        const peticion = await fetch(`http://localhost:8000/api/playlists/${id}`, {
+        const peticion = await fetch(`/api/playlists/${id}`, {
             method: "POST",
             headers: {
                 "Accept": "application/json",

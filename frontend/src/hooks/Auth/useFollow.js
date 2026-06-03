@@ -9,7 +9,7 @@ export const useFollow = () => {
         setError(null);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8000/api/usuarios/${idUsuario}/follow`, {
+            const response = await fetch(`/api/usuarios/${idUsuario}/follow`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
             });

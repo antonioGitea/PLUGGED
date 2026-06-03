@@ -47,7 +47,7 @@ const useApiPut = async (id, cancionEditada, token) => {
     console.log('useApiPut_Cancion - enviando colaboradores:', colaboradoresArray);
     formData.append('colaboradores', JSON.stringify(colaboradoresArray));
 
-    const peticion = await fetch(`http://localhost:8000/api/canciones/${id}`, {
+    const peticion = await fetch(`/api/canciones/${id}`, {
         method: "POST", // Se mantiene POST por el FormData
         headers: {
             "Accept": "application/json",

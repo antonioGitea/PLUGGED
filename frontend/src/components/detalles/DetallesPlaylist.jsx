@@ -9,7 +9,7 @@ import { generarPortadaPlaceholder } from "../../utils/imagen.js";
 import PortadaPorDefecto from "../../assets/portada-default.jpg";
 import "./DetallesPlaylist.css";
 
-const URL_STORAGE = "http://localhost:8000/storage/";
+const URL_STORAGE = "/storage/";
 
 const DetallesPlaylist = ({ playlistBuscada }) => {
     const { reproducirTrack, trackActual, isPlaying } = useContext(contextoMusica);

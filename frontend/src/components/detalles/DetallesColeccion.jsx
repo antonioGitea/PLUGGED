@@ -10,7 +10,7 @@ import { generarPortadaPlaceholder } from "../../utils/imagen.js";
 import PortadaPorDefecto from "../../assets/portada-default.jpg";
 import "./DetallesColeccion.css"; // Asegúrate de enlazar sus estilos
 
-const URL_STORAGE = "http://localhost:8000/storage/";
+const URL_STORAGE = "/storage/";
 
 const DetallesColeccion = ({ coleccionBuscada }) => {
     // Si por algún motivo se recarga la ruta directamente y tarda en llegar la prop

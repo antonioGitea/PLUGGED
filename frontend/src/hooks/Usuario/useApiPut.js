@@ -35,7 +35,7 @@ const useApiPut = async (id, usuarioEditado, token) => {
         formData.append('banner', usuarioEditado.banner);
     }
 
-    const peticion = await fetch(`http://localhost:8000/api/usuarios/${id}`, {
+    const peticion = await fetch(`/api/usuarios/${id}`, {
         method: "POST", // Se envía como POST pero Laravel lo lee como PUT
         headers: {
             "Accept": "application/json",

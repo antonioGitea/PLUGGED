@@ -44,7 +44,7 @@ const DetallesCancion = ({ cancionBuscada }) => {
         const cargarDatosCancion = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`http://localhost:8000/api/canciones/${id}`, {
+                const response = await fetch(`/api/canciones/${id}`, {
                     headers: token ? { 'Authorization': `Bearer ${token}` } : {}
                 });
 
@@ -88,7 +88,7 @@ const DetallesCancion = ({ cancionBuscada }) => {
             setYaContada(true);
 
             // Sincronizar con backend
-            fetch(`http://localhost:8000/api/canciones/${id}/reproducir`, {
+            fetch(`/api/canciones/${id}/reproducir`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ const DetallesCancion = ({ cancionBuscada }) => {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8000/api/playlists/${playlistId}/agregar-cancion`, {
+            const response = await fetch(`/api/playlists/${playlistId}/agregar-cancion`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

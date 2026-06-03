@@ -12,7 +12,7 @@ const useObtenerEstilos = () => {
     useEffect(() => {
         const cargarEstilos = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/estilos');
+                const response = await fetch('/api/estilos');
                 if (response.ok) {
                     const datos = await response.json();
                     setEstilos(datos);

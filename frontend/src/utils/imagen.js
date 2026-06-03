@@ -26,11 +26,11 @@ export const resolverRutaArchivo = (ruta) => {
 
     // Si ya contiene /storage/, no agregar de nuevo
     if (rutaNormalizada.includes('/storage/')) {
-        return `http://localhost:8000/${rutaNormalizada}`;
+        return `/${rutaNormalizada}`;
     }
 
     // Agregar /storage/ si no está presente (archivos del sistema)
-    return `http://localhost:8000/storage/${rutaNormalizada}`;
+    return `/storage/${rutaNormalizada}`;
 };
 
 export const generarAvatarDicebear = (nombre = 'usuario') => {

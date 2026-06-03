@@ -117,7 +117,7 @@ const Mostrar = () => {
                     return null;
             }
 
-            const response = await fetch(`http://localhost:8000${endpoint}`, {
+            const response = await fetch(`${endpoint}`, {
                 headers: {
                     'Accept': 'application/json',
                     ...headers

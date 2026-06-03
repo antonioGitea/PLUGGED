@@ -13,7 +13,7 @@ const AmigosUsuario = ({ datosUsuario }) => {
                 try {
                     const token = localStorage.getItem('token');
                     const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
-                    const url = `http://localhost:8000/api/usuarios/${datosUsuario.id}/amigos`;
+                    const url = `/api/usuarios/${datosUsuario.id}/amigos`;
                     const response = await fetch(url, { headers });
                     if (response.ok) {
                         const data = await response.json();

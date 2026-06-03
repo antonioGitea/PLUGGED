@@ -11,7 +11,7 @@ const useApiPost = async (hardwareCreado, token) => {
         formData.append('imagen', hardwareCreado.imagen); // Archivo de imagen del equipo
     }
 
-    const peticion = await fetch("http://localhost:8000/api/hardware", {
+    const peticion = await fetch("/api/hardware", {
         method: "POST",
         headers: {
             "Accept": "application/json",

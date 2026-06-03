@@ -39,7 +39,7 @@ const SubirCancion = ({ alFinalizar, misColecciones, misPlaylists, datosAEditar 
 
     // Cargar estilos desde API
     useEffect(() => {
-        fetch('http://localhost:8000/api/estilos')
+        fetch('/api/estilos')
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) {

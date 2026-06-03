@@ -1,6 +1,6 @@
 const useApiGetAll = async () => {
     let respuesta = null;
-    let peticion = await fetch("http://localhost:8000/api/playlists");
+    let peticion = await fetch("/api/playlists");
     let playlists = await peticion.json();
     console.log(playlists);
 

@@ -1,6 +1,6 @@
 const useApiDelete_Galeria = async (id, token) => {
     try {
-        const response = await fetch(`http://localhost:8000/api/usuarios/galeria/${id}`, {
+        const response = await fetch(`/api/usuarios/galeria/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,

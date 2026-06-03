@@ -5,7 +5,7 @@ import { contextoMusica } from '../contexts/ProveedorMusica.jsx';
 import { generarPortadaPlaceholder } from '../utils/imagen.js';
 import './Reproductor.css';
 
-const URL_STORAGE = "http://localhost:8000/storage/";
+const URL_STORAGE = "/storage/";
 
 const Reproductor = () => {
     // ============================================
@@ -49,7 +49,7 @@ const Reproductor = () => {
         if (!urlFinal.startsWith('http://') && !urlFinal.startsWith('https://')) {
             const rutaLimpia = urlFinal.startsWith('/') ? urlFinal.substring(1) : urlFinal;
             if (rutaLimpia.startsWith('storage/')) {
-                urlFinal = `http://localhost:8000/${rutaLimpia}`;
+                urlFinal = `/${rutaLimpia}`;
             } else {
                 urlFinal = `${URL_STORAGE}${rutaLimpia}`;
             }
@@ -206,7 +206,7 @@ const Reproductor = () => {
                 reproduccionesContadas.current.add(trackActual.id);
                 console.log('📊 Reproducción contada:', trackActual.titulo);
 
-                fetch(`http://localhost:8000/api/canciones/${trackActual.id}/reproducir`, {
+                fetch(`/api/canciones/${trackActual.id}/reproducir`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

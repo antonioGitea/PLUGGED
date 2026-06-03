@@ -27,7 +27,7 @@ const useApiPut = async (id, coleccionEditada, token) => {
     }
     formData.append('colaboradores', JSON.stringify(colaboradoresArray));
 
-    const peticion = await fetch(`http://localhost:8000/api/colecciones/${id}`, {
+    const peticion = await fetch(`/api/colecciones/${id}`, {
         method: "POST",
         headers: {
             "Accept": "application/json",

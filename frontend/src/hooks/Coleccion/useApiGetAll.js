@@ -1,6 +1,6 @@
 const useApiGetAll = async () => {
     let respuesta = null;
-    let peticion = await fetch("http://localhost:8000/api/colecciones");
+    let peticion = await fetch("/api/colecciones");
     let colecciones = await peticion.json();
     console.log(colecciones);
 

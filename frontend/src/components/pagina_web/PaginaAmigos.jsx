@@ -23,7 +23,7 @@ const PaginaAmigos = () => {
             // Si no, intentamos obtener los datos del usuario
             const obtenerDatosUsuario = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8000/api/usuarios/${usuarioId}`);
+                    const response = await fetch(`/api/usuarios/${usuarioId}`);
                     console.log('PaginaAmigos: Fetch response status:', response.status);
                     if (response.ok) {
                         const datos = await response.json();

@@ -22,7 +22,7 @@ const useApiPost = async (eventoCreado, token) => {
         formData.append('estilos', JSON.stringify(eventoCreado.estilos));
     }
 
-    const peticion = await fetch("http://localhost:8000/api/eventos", {
+    const peticion = await fetch("/api/eventos", {
         method: "POST",
         headers: {
             "Accept": "application/json",

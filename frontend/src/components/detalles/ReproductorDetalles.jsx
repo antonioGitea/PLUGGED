@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useContext, useCallback } from 'rea
 import { contextoMusica } from '../../contexts/ProveedorMusica.jsx';
 import './ReproductorDetalles.css';
 
-const URL_STORAGE = "http://localhost:8000/storage/";
+const URL_STORAGE = "/storage/";
 const THROTTLE_TIME = 500; // Throttle timeupdate to 500ms intervals
 
 const ReproductorDetallesComponent = ({ cancion, onTimeChange, seekTime, onPlay }) => {
@@ -33,7 +33,7 @@ const ReproductorDetallesComponent = ({ cancion, onTimeChange, seekTime, onPlay 
 
         const partes = filename.split('/');
         const nombreArchivo = partes[partes.length - 1];
-        const url = `http://localhost:8000/api/audios/${nombreArchivo}`;
+        const url = `/api/audios/${nombreArchivo}`;
 
         return url;
     }, [cancion]);

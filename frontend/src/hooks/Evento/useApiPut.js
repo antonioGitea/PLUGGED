@@ -42,7 +42,7 @@ const useApiPut = async (id, eventoEditado, token) => {
     }
     formData.append('colaboradores', JSON.stringify(colaboradoresArray));
 
-    const peticion = await fetch(`http://localhost:8000/api/eventos/${id}`, {
+    const peticion = await fetch(`/api/eventos/${id}`, {
         method: "POST", // POST es obligatorio para FormData
         headers: {
             "Accept": "application/json",

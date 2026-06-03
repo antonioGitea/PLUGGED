@@ -23,7 +23,7 @@ import useApiDelete_Cancion from "../../hooks/Cancion/UseApiDelete.js";
 
 import "./DetallesUsuario.css";
 
-const URL_STORAGE = "http://localhost:8000/storage/";
+const URL_STORAGE = "/storage/";
 
 const obtenerImagen = (ruta) => {
     if (!ruta) return null;
@@ -71,7 +71,7 @@ const DetallesUsuario = ({ datosUsuario, refrescarTodo }) => {
                     headers['Authorization'] = `Bearer ${token}`;
                 }
 
-                const res = await fetch('http://localhost:8000/api/canciones', { headers });
+                const res = await fetch('/api/canciones', { headers });
                 const data = await res.json();
                 setCancionesLocales(data);
             } catch (e) {
@@ -223,7 +223,7 @@ const DetallesUsuario = ({ datosUsuario, refrescarTodo }) => {
                 const token = localStorage.getItem('token');
                 const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
 
-                const response = await fetch(`http://localhost:8000${endpoint}`, { headers });
+                const response = await fetch(`${endpoint}`, { headers });
                 if (response.ok) {
                     const datosCompletos = await response.json();
                     setDatosEdicion(datosCompletos);
@@ -265,7 +265,7 @@ const DetallesUsuario = ({ datosUsuario, refrescarTodo }) => {
 
         // 🔄 Refrescar canciones locales inmediatamente después de publicar/editar
         try {
-            const res = await fetch('http://localhost:8000/api/canciones');
+            const res = await fetch('/api/canciones');
             const data = await res.json();
             setCancionesLocales(data);
         } catch (e) {
@@ -274,7 +274,7 @@ const DetallesUsuario = ({ datosUsuario, refrescarTodo }) => {
 
         // 🔄 Refrescar eventos después de crear/editar
         try {
-            const resEventos = await fetch('http://localhost:8000/api/eventos');
+            const resEventos = await fetch('/api/eventos');
             if (resEventos.ok) {
                 const dataEventos = await resEventos.json();
             }

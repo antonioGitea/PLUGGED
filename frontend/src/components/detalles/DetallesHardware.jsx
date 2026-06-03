@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PortadaPorDefecto from "../../assets/portada-default.jpg";
 import "./DetallesHardware.css";
 
-const URL_STORAGE = "http://localhost:8000/storage/";
+const URL_STORAGE = "/storage/";
 
 const obtenerImagen = (ruta) => {
     if (!ruta) return PortadaPorDefecto;

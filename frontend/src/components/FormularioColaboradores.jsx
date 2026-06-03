@@ -12,7 +12,7 @@ const FormularioColaboradores = ({ colaboradoresSeleccionados = [], onColaborado
         const obtenerAmigos = async () => {
             if (!usuario?.id) return;
             try {
-                const response = await fetch(`http://localhost:8000/api/usuarios/${usuario.id}/amigos`);
+                const response = await fetch(`/api/usuarios/${usuario.id}/amigos`);
                 if (response.ok) {
                     const datos = await response.json();
                     setAmigos(Array.isArray(datos) ? datos : (datos.amigos || []));

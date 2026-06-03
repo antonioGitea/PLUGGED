@@ -1,7 +1,7 @@
 const useApiDelete = async (id, token) => {
     let respuesta = null;
 
-    const peticion = await fetch(`http://localhost:8000/api/playlists/${id}`, {
+    const peticion = await fetch(`/api/playlists/${id}`, {
         method: "DELETE",
         headers: {
             "Accept": "application/json",

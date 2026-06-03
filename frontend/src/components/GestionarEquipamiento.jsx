@@ -3,7 +3,7 @@ import { contextoEquipamiento } from "../contexts/ProveedorEquipamiento.jsx";
 import { contextoNotificaciones } from "../contexts/ProveedorNotificaciones.jsx";
 import "./GestionarEquipamiento.css";
 
-const URL_STORAGE = "http://localhost:8000/storage/";
+const URL_STORAGE = "/storage/";
 
 const GestionarEquipamiento = ({ alFinalizar, hardwaresActuales = [], softwaresActuales = [] }) => {
     const {

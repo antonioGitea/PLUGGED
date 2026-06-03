@@ -31,7 +31,7 @@ const useApiPost = async (coleccionData, token) => {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/colecciones', {
+        const response = await fetch('/api/colecciones', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

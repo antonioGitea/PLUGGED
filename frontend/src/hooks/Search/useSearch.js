@@ -4,7 +4,7 @@ const useSearch = async (query) => {
     }
 
     try {
-        const response = await fetch(`http://localhost:8000/api/buscar?q=${encodeURIComponent(query)}`, {
+        const response = await fetch(`/api/buscar?q=${encodeURIComponent(query)}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'

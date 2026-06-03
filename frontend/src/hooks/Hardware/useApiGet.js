@@ -1,6 +1,6 @@
 const useApiGet = async (id) => {
     let respuesta = null;
-    let peticion = await fetch(`http://localhost:8000/api/hardware/${id}`);
+    let peticion = await fetch(`/api/hardware/${id}`);
     let hardware = await peticion.json();
 
     if (hardware.id == id && peticion.ok) {

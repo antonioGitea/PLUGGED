@@ -13,7 +13,7 @@ const useApiPost = async (softwareCreado, token) => {
         formData.append('imagen', softwareCreado.imagen); // Archivo File
     }
 
-    const peticion = await fetch("http://localhost:8000/api/software", {
+    const peticion = await fetch("/api/software", {
         method: "POST",
         headers: {
             "Accept": "application/json",

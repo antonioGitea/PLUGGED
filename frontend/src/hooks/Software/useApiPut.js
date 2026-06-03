@@ -16,7 +16,7 @@ const useApiPut = async (id, softwareEditado, token) => {
         formData.append('imagen', softwareEditado.imagen);
     }
 
-    const peticion = await fetch(`http://localhost:8000/api/software/${id}`, {
+    const peticion = await fetch(`/api/software/${id}`, {
         method: "POST",
         headers: {
             "Accept": "application/json",

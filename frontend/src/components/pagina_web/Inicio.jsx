@@ -18,7 +18,7 @@ export const Inicio = () => {
     useEffect(() => {
         const refrescarCanciones = async () => {
             try {
-                const res = await fetch('http://localhost:8000/api/canciones');
+                const res = await fetch('/api/canciones');
                 const data = await res.json();
                 setCanciones(data);
             } catch (e) {

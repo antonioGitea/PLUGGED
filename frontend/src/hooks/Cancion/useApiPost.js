@@ -49,7 +49,7 @@ const useApiPost = async (cancionCreada, token) => {
     }
 
     // 4. Ejecución del envío
-    const peticion = await fetch("http://localhost:8000/api/canciones", {
+    const peticion = await fetch("/api/canciones", {
         method: "POST",
         headers: {
             "Accept": "application/json",

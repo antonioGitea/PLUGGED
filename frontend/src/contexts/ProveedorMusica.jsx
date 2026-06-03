@@ -228,7 +228,7 @@ const ProveedorMusica = (props) => {
             const token = localStorage.getItem('token');
             const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
 
-            const response = await fetch(`http://localhost:8000/api/playlists/${idPlaylist}`, {
+            const response = await fetch(`/api/playlists/${idPlaylist}`, {
                 headers: {
                     'Accept': 'application/json',
                     ...headers
