@@ -47,6 +47,9 @@ RUN composer install --optimize-autoloader --no-dev
 # Copiar frontend compilado desde stage 1
 COPY --from=frontend-builder /app/frontend/dist ./public/dist
 
+# Crear enlace simbólico para storage (CRÍTICO para servir archivos)
+RUN php artisan storage:link --force
+
 # Ajuste de permisos para Laravel
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache

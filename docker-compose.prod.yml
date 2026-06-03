@@ -20,9 +20,11 @@ services:
   php:
     build:
       context: ./backend/php
+      dockerfile: Dockerfile.prod
     working_dir: /var/www
     volumes:
       - ./backend/src:/var/www
+      - storage_data:/var/www/storage
     depends_on:
       - db
     restart: unless-stopped
@@ -50,3 +52,4 @@ volumes:
   db_data:
   caddy_data:
   caddy_config:
+  storage_data:
