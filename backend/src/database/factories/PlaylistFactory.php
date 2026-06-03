@@ -52,12 +52,12 @@ class PlaylistFactory extends Factory
     public function definition(): array
     {
         return [
-            'titulo' => $this->faker->words(3, true),
-            'artista' => $this->faker->name(),
-            'portada' => $this->faker->imageUrl(500, 500, 'playlist'),
-            'descripcion' => $this->faker->sentence(),
-            'privacidad' => $this->faker->randomElement(['publica', 'privada']),
-            'fecha_publicacion' => $this->faker->year(),
+            'titulo' => 'Playlist ' . rand(1, 9999),
+            'artista' => 'Artist ' . rand(1, 9999),
+            'portada' => 'portadas/portada-default.jpg',
+            'descripcion' => 'Test playlist',
+            'privacidad' => rand(0, 1) ? 'publica' : 'privada',
+            'fecha_publicacion' => date('Y'),
             'id_usuario' => Usuario::factory(),
         ];
     }

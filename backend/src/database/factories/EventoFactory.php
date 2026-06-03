@@ -52,35 +52,30 @@ class EventoFactory extends Factory
     public function definition(): array
     {
         return [
-            'url_venta' => $this->faker->unique()->url(),
-            'nombre' => $this->faker->sentence(2, 3),
-            'nombre_sala' => $this->faker->company() . ' Stage',
-            'ubicacion' => $this->faker->address(),
-            'imagen' => $this->faker->imageUrl(800, 600, 'concert'),
-            'fecha_evento' => $this->faker->dateTimeBetween('2025-06-01', '2026-12-31')->format('Y-m-d'),
+            'url_venta' => 'https://tickets.example.com/' . rand(1, 9999),
+            'nombre' => 'Event ' . rand(1, 9999),
+            'nombre_sala' => 'Venue ' . rand(1, 9999),
+            'ubicacion' => 'Europe',
+            'imagen' => 'portadas/portada-default.jpg',
+            'fecha_evento' => date('Y-m-d', strtotime('+' . rand(1, 365) . ' days')),
         ];
     }
 
     /**
      * Crea un evento basado en una venue real europea.
-     *
-     * Asigna datos de venue realista (nombre, ubicación, coordenadas) al evento.
-     *
-     * @param array $venue Datos del venue desde RealVenues
-     * @return $this Factory state
      */
     public function fromVenue($venue): static
     {
         return $this->state(function (array $attributes) use ($venue) {
             return [
-                'url_venta' => $venue['url_venta'],
-                'nombre' => $venue['nombre'] . ' ' . $this->faker->year(),
-                'nombre_sala' => $venue['nombre_sala'],
-                'ubicacion' => $venue['ubicacion'],
-                'latitud' => $venue['latitud'],
-                'longitud' => $venue['longitud'],
-                'imagen' => $this->faker->imageUrl(800, 600, 'concert'),
-                'fecha_evento' => $this->faker->dateTimeBetween('2025-06-01', '2026-12-31')->format('Y-m-d'),
+                'url_venta' => $venue['url_venta'] ?? 'https://tickets.example.com/' . rand(1, 9999),
+                'nombre' => ($venue['nombre'] ?? 'Event') . ' ' . date('Y'),
+                'nombre_sala' => $venue['nombre_sala'] ?? 'Venue',
+                'ubicacion' => $venue['ubicacion'] ?? 'Europe',
+                'latitud' => $venue['latitud'] ?? 50.0,
+                'longitud' => $venue['longitud'] ?? 10.0,
+                'imagen' => 'portadas/portada-default.jpg',
+                'fecha_evento' => date('Y-m-d', strtotime('+' . rand(1, 365) . ' days')),
             ];
         });
     }

@@ -52,23 +52,21 @@ class CancionFactory extends Factory
      */
     public function definition(): array
     {
-        // Pool de audios reales disponibles en storage
         $audiosDisponibles = [
             'audios/1QECXGjby1ICwbeV2mxsdVi5kdM0EXl5iFCBLHO2.mp3',
             'audios/28oY3tWZoMLBNnIVCVxRayON9FggTRO3xIbLrLM0.mp3',
-            'audios/2HhdHagZjcOPL5Gr1DxiE7SiUzbOkW2RUiArBQ85.mp3',
-            'audios/35hUFrgKW67CaDwxpXnHOJlqTi6vuU5WHg61zmsa.mp3',
-            'audios/3a0dtwy6ZOr5PqAlafXKyZi6kWrvyDVzEPsnNWiS.mp3',
         ];
 
+        $tonalidades = ['Am', 'Cm', 'F#m', 'G', 'Dm', 'Em', 'Gm'];
+
         return [
-            'titulo' => $this->faker->words(3, true),
-            'bpm' => $this->faker->numberBetween(90, 140),
-            'tonalidad' => $this->faker->randomElement(['Am', 'Cm', 'F#m', 'G', 'Dm', 'Em', 'Gm']),
-            'ubicacion' => $this->faker->randomElement($audiosDisponibles), // Audio real en lugar de URL fake
-            'portada' => $this->faker->imageUrl(500, 500, 'music'),
-            'fecha_publicacion' => $this->faker->year(),
-            'privacidad' => $this->faker->randomElement(['publica', 'privada']),
+            'titulo' => 'Song ' . rand(1, 9999),
+            'bpm' => rand(90, 140),
+            'tonalidad' => $tonalidades[array_rand($tonalidades)],
+            'ubicacion' => $audiosDisponibles[array_rand($audiosDisponibles)],
+            'portada' => 'portadas/portada-default.jpg',
+            'fecha_publicacion' => date('Y'),
+            'privacidad' => rand(0, 1) ? 'publica' : 'privada',
             'id_usuario' => Usuario::factory(),
             'id_coleccion' => Coleccion::factory(),
         ];

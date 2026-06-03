@@ -51,11 +51,11 @@ class ColeccionFactory extends Factory
     public function definition(): array
     {
         return [
-            'titulo' => $this->faker->sentence(3),
-            'artista' => $this->faker->name(),
-            'portada' => $this->faker->imageUrl(500, 500, 'abstract'),
-            'tipo' => $this->faker->randomElement(['album', 'ep']),
-            'fecha_publicacion' => $this->faker->year(),
+            'titulo' => 'Album ' . rand(1, 9999),
+            'artista' => 'Artist ' . rand(1, 9999),
+            'portada' => 'portadas/portada-default.jpg',
+            'tipo' => rand(0, 1) ? 'album' : 'ep',
+            'fecha_publicacion' => date('Y'),
             'id_usuario' => Usuario::factory(),
         ];
     }
