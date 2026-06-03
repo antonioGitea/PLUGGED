@@ -76,8 +76,12 @@ class DatabaseSeeder extends Seeder
         // Géneros musicales
         $this->call(EstilosSeeder::class);
 
-        // Cargar datos de personas y crear usuarios coherentes
-        $personas = require database_path('seeders/data/ProducerPersonas.php');
+        // Crear usuarios simples
+        $personas = [
+            ['nick' => 'dj_producer1', 'nombre' => 'DJ Producer 1', 'email' => 'dj1@test.com', 'estilos_primarios' => ['House']],
+            ['nick' => 'dj_producer2', 'nombre' => 'DJ Producer 2', 'email' => 'dj2@test.com', 'estilos_primarios' => ['Techno']],
+            ['nick' => 'dj_producer3', 'nombre' => 'DJ Producer 3', 'email' => 'dj3@test.com', 'estilos_primarios' => ['Deep House']],
+        ];
         $softwares = Software::all();
         $hardwares = Hardware::all();
         $estilos = Estilo::all();
@@ -87,9 +91,18 @@ class DatabaseSeeder extends Seeder
         $usuarios = collect();
 
         foreach ($personas as $persona) {
-            $usuario = Usuario::factory()
-                ->withPersona($persona)
-                ->create();
+            // Crear usuario simple sin withPersona
+            $usuario = Usuario::create([
+                'nick' => $persona['nick'],
+                'nombre' => $persona['nombre'],
+                'email' => $persona['email'],
+                'password' => bcrypt('password'),
+                'rol' => 'productor',
+                'email_verified_at' => now(),
+                'ubicacion' => 'Europe',
+                'latitud' => 50.0,
+                'longitud' => 10.0,
+            ]);
 
             // Asignar géneros al usuario
             if (!empty($persona['estilos_primarios'])) {
@@ -101,19 +114,6 @@ class DatabaseSeeder extends Seeder
                 if (!empty($estilo_ids)) {
                     $usuario->estilos()->sync($estilo_ids);
                 }
-            }
-
-            // Asignar equipamiento específico del productor
-            if (!empty($persona['hardware_ids'])) {
-                $usuario->hardwares()->attach(
-                    $hardwares->whereIn('id', $persona['hardware_ids'])->pluck('id')
-                );
-            }
-
-            if (!empty($persona['software_ids'])) {
-                $usuario->softwares()->attach(
-                    $softwares->whereIn('id', $persona['software_ids'])->pluck('id')
-                );
             }
 
             // 🆕 Crear colecciones y playlists especiales
