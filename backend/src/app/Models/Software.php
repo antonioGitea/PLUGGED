@@ -49,7 +49,7 @@ class Software extends Model
     protected function imagen(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? asset('storage/' . $value) : null,
+            get: fn ($value) => $value ? '/storage/' . $value : null,
         );
     }
 
