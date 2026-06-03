@@ -1,0 +1,20 @@
+{$DOMAIN} {
+    root * /var/www/public
+
+    # Gzip compression
+    encode gzip zstd
+
+    # PHP FastCGI
+    php_fastcgi php:9000
+
+    # Archivos estáticos
+    file_server
+
+    # Logs
+    log {
+        output file /var/log/caddy/access.log {
+            roll_size 10mb
+            roll_keep 10
+        }
+    }
+}

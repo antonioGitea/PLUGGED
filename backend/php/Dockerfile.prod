@@ -1,0 +1,58 @@
+# Stage 1: Compilar Frontend
+FROM node:20-alpine AS frontend-builder
+
+WORKDIR /app/frontend
+
+COPY frontend/package*.json ./
+RUN npm ci
+
+COPY frontend .
+RUN npm run build
+
+# Stage 2: Preparar Backend PHP
+FROM php:8.4-fpm-alpine
+
+# Dependencias del sistema y extensiones PHP para Laravel
+RUN apk add --no-cache \
+    bash \
+    git \
+    unzip \
+    icu-dev \
+    oniguruma-dev \
+    libzip-dev \
+    mysql-client \
+  && docker-php-ext-configure intl \
+  && docker-php-ext-install -j$(nproc) \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    intl \
+    zip \
+  && rm -rf /var/cache/apk/*
+
+# Instalar Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Límites de subida
+COPY uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini
+
+WORKDIR /var/www
+
+# Copiar código Laravel
+COPY src .
+
+# Instalar dependencias PHP
+RUN composer install --optimize-autoloader --no-dev
+
+# Copiar frontend compilado desde stage 1
+COPY --from=frontend-builder /app/frontend/dist ./public/dist
+
+# Ajuste de permisos para Laravel
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 storage bootstrap/cache
+
+USER www-data
+
+EXPOSE 9000
+
+CMD ["php-fpm"]

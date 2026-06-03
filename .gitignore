@@ -1,0 +1,41 @@
+# Archivos de configuración sensibles
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Node
+node_modules/
+frontend/dist/
+
+# PHP/Composer
+backend/src/vendor/
+backend/src/composer.lock
+
+# Laravel
+backend/src/storage/
+backend/src/bootstrap/cache/
+backend/src/.env
+backend/src/.env.*.local
+
+# Docker volumes (local development)
+db_data/
+
+# Temporal files
+*.tmp
+.env.test
