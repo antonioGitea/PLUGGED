@@ -19,8 +19,8 @@ services:
 
   php:
     build:
-      context: ./backend/php
-      dockerfile: Dockerfile.prod
+      context: .
+      dockerfile: ./backend/php/Dockerfile.prod
     working_dir: /var/www
     volumes:
       - ./backend/src:/var/www
