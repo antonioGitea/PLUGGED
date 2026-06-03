@@ -149,7 +149,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Crear eventos desde venues reales
-        $this->call(EventosSeeder::class);
+        // $this->call(EventosSeeder::class);
 
         // Crear contenido para cada usuario
         foreach ($usuarios as $usuario) {
@@ -278,10 +278,10 @@ class DatabaseSeeder extends Seeder
         }
 
         // Reproducciones realistas
-        $this->call(ReproduccionesSeeder::class);
+        // $this->call(ReproduccionesSeeder::class);
 
         // Imágenes de galería temáticas
-        $this->call(GaleriaSeeder::class);
+        // $this->call(GaleriaSeeder::class);
 
         $this->command->info('Database seeded with realistic, coherent data!');
         $this->command->info('- 15 European producers with matching equipment and genres');
