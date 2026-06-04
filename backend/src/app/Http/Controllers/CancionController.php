@@ -137,12 +137,20 @@ class CancionController extends Controller
         if ($request->hasFile('archivo')) {
             $rutaAudio = $request->file('archivo')->store('audios', 'public');
             $cancion->ubicacion = $rutaAudio;
+            Log::info('📀 Audio guardado:', ['ruta' => $rutaAudio]);
         }
 
         // Paso 3: Procesar archivo de portada
         if ($request->hasFile('portada')) {
-            $rutaPortada = $request->file('portada')->store('portadas', 'public');
-            $cancion->portada = $rutaPortada;
+            try {
+                $rutaPortada = $request->file('portada')->store('portadas', 'public');
+                $cancion->portada = $rutaPortada;
+                Log::info('📀 Portada guardada:', ['ruta' => $rutaPortada]);
+            } catch (\Exception $e) {
+                Log::error('📀 Error al guardar portada:', ['error' => $e->getMessage()]);
+            }
+        } else {
+            Log::info('📀 No se envió portada');
         }
 
         // Paso 4: Asignar usuario creador de forma inteligente
