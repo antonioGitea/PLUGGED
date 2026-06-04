@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { contextoEquipamiento } from "../contexts/ProveedorEquipamiento.jsx";
 import { contextoNotificaciones } from "../contexts/ProveedorNotificaciones.jsx";
+import { resolverRutaArchivo } from "../utils/imagen.js";
 import "./GestionarEquipamiento.css";
-
-const URL_STORAGE = "/storage/";
 
 const GestionarEquipamiento = ({ alFinalizar, hardwaresActuales = [], softwaresActuales = [] }) => {
     const {
@@ -98,8 +97,7 @@ const GestionarEquipamiento = ({ alFinalizar, hardwaresActuales = [], softwaresA
 
     const obtenerImagen = (ruta) => {
         if (!ruta) return null;
-        if (ruta.startsWith('http://') || ruta.startsWith('https://')) return ruta;
-        return `${URL_STORAGE}${ruta.startsWith('/') ? ruta.substring(1) : ruta}`;
+        return resolverRutaArchivo(ruta);
     };
 
     if (loadingGear) return <p className="sc-loading-gear">Cargando tu equipamiento...</p>;

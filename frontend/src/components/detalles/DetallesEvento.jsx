@@ -4,13 +4,12 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './DetallesEvento.css';
 import PortadaPorDefecto from '../../assets/portada-default.jpg';
+import { resolverRutaArchivo } from '../../utils/imagen.js';
 
 // Función para obtener imágenes con prefijo /storage/
 const obtenerImagen = (ruta) => {
     if (!ruta) return null;
-    if (ruta.startsWith('http://') || ruta.startsWith('https://')) return ruta;
-    const URL_STORAGE = "/storage/";
-    return `${URL_STORAGE}${ruta.startsWith('/') ? ruta.substring(1) : ruta}`;
+    return resolverRutaArchivo(ruta);
 };
 
 const DetallesEvento = ({ eventoBuscado }) => {

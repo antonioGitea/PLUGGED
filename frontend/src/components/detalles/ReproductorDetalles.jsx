@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useContext, useCallback } from 'rea
 import { contextoMusica } from '../../contexts/ProveedorMusica.jsx';
 import './ReproductorDetalles.css';
 
-const URL_STORAGE = "/storage/";
 const THROTTLE_TIME = 500; // Throttle timeupdate to 500ms intervals
 
 const ReproductorDetallesComponent = ({ cancion, onTimeChange, seekTime, onPlay }) => {

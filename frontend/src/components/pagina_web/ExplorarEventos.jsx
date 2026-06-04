@@ -4,7 +4,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { contextoEvento } from '../../contexts/ProveedorEvento.jsx';
 import { Link } from 'react-router-dom';
 import { FaMapPin, FaMusic, FaCalendarAlt, FaArrowRight, FaMusic as FaMusic2 } from 'react-icons/fa';
-import { generarPortadaPlaceholder } from '../../utils/imagen.js';
+import { generarPortadaPlaceholder, resolverRutaArchivo } from '../../utils/imagen.js';
 import './ExplorarEventos.css';
 
 const ExplorarEventos = () => {
@@ -140,10 +140,7 @@ const ExplorarEventos = () => {
             });
 
             // Crear popup con imagen correcta
-            // El backend devuelve /storage/... directamente desde el accessor
-            const imagenUrl = evento.imagen?.startsWith('http') || evento.imagen?.startsWith('/storage')
-                ? evento.imagen
-                : (evento.imagen ? `/storage/${evento.imagen}` : null);
+            const imagenUrl = resolverRutaArchivo(evento.imagen);
 
             const popup = new maplibregl.Popup({
                 offset: [30, 0],
@@ -330,7 +327,7 @@ const ExplorarEventos = () => {
                                         <div className="sidebar-evento-image">
                                             {evento.imagen ? (
                                                 <img
-                                                    src={evento.imagen?.startsWith('http') ? evento.imagen : `/storage/${evento.imagen}`}
+                                                    src={resolverRutaArchivo(evento.imagen)}
                                                     alt={evento.nombre}
                                                     onError={(e) => {
                                                         e.target.style.display = 'none';

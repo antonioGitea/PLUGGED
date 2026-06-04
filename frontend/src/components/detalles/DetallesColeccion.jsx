@@ -6,11 +6,9 @@ import useApiPut from "../../hooks/Cancion/useApiPut.js";
 import { contextoMusica } from "../../contexts/ProveedorMusica.jsx";
 import { contextoNotificaciones } from "../../contexts/ProveedorNotificaciones.jsx";
 import { useAuth } from "../../contexts/ProveedorAuth.jsx";
-import { generarPortadaPlaceholder } from "../../utils/imagen.js";
+import { generarPortadaPlaceholder, resolverRutaArchivo } from "../../utils/imagen.js";
 import PortadaPorDefecto from "../../assets/portada-default.jpg";
 import "./DetallesColeccion.css"; // Asegúrate de enlazar sus estilos
-
-const URL_STORAGE = "/storage/";
 
 const DetallesColeccion = ({ coleccionBuscada }) => {
     // Si por algún motivo se recarga la ruta directamente y tarda en llegar la prop
@@ -64,10 +62,7 @@ const DetallesColeccion = ({ coleccionBuscada }) => {
     // Función auxiliar para evitar URLs rotas de portadas
     const obtenerRutaPortada = (campoPortada) => {
         if (!campoPortada) return PortadaPorDefecto;
-        if (campoPortada.startsWith('http://') || campoPortada.startsWith('https://')) {
-            return campoPortada;
-        }
-        return `${URL_STORAGE}${campoPortada}`;
+        return resolverRutaArchivo(campoPortada) || PortadaPorDefecto;
     };
 
     return (

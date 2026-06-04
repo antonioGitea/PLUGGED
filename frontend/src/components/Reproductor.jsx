@@ -2,10 +2,8 @@
 import React, { useEffect, useRef, useContext, useState } from 'react';
 import { FaMusic } from 'react-icons/fa';
 import { contextoMusica } from '../contexts/ProveedorMusica.jsx';
-import { generarPortadaPlaceholder } from '../utils/imagen.js';
+import { generarPortadaPlaceholder, resolverRutaArchivo } from '../utils/imagen.js';
 import './Reproductor.css';
-
-const URL_STORAGE = "/storage/";
 
 const Reproductor = () => {
     // ============================================
@@ -33,33 +31,14 @@ const Reproductor = () => {
      */
     const obtenerRutaPortada = (campoPortada) => {
         if (!campoPortada) return generarPortadaPlaceholder('Canción', false);
-        if (campoPortada.startsWith('http://') || campoPortada.startsWith('https://')) {
-            return campoPortada;
-        }
-        return `${URL_STORAGE}${campoPortada.startsWith('/') ? campoPortada.substring(1) : campoPortada}`;
+        return resolverRutaArchivo(campoPortada) || generarPortadaPlaceholder('Canción', false);
     };
 
     /**
      * Obtiene la URL del audio para reproducción
      */
     const obtenerUrlAudio = (ubicacion) => {
-        if (!ubicacion) return null;
-
-        let urlFinal = ubicacion;
-        if (!urlFinal.startsWith('http://') && !urlFinal.startsWith('https://')) {
-            const rutaLimpia = urlFinal.startsWith('/') ? urlFinal.substring(1) : urlFinal;
-            if (rutaLimpia.startsWith('storage/')) {
-                urlFinal = `/${rutaLimpia}`;
-            } else {
-                urlFinal = `${URL_STORAGE}${rutaLimpia}`;
-            }
-        }
-
-        // Limpiar URLs duplicadas
-        urlFinal = urlFinal.replace('/storage//storage/', '/storage/');
-        urlFinal = urlFinal.replace('/storage/storage/', '/storage/');
-
-        return urlFinal;
+        return resolverRutaArchivo(ubicacion);
     };
 
     /**

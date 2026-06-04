@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { contextoMusica } from "../../contexts/ProveedorMusica.jsx";
-import { generarPortadaPlaceholder } from "../../utils/imagen.js";
+import { generarPortadaPlaceholder, resolverRutaArchivo } from "../../utils/imagen.js";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import "./Cancion.css";
@@ -10,6 +10,8 @@ const Cancion = (props) => {
     const { id, titulo, portada, usuario } = props.datosCancion;
     // Usar gradientes como colecciones en lugar de corchea
     const imagenPorDefecto = generarPortadaPlaceholder(titulo || 'Canción');
+    const portadaProcesada = resolverRutaArchivo(portada) || imagenPorDefecto;
+    const avatarProcesado = resolverRutaArchivo(usuario?.avatar);
 
     const esEsta = trackActual?.id === id;
 
@@ -28,7 +30,7 @@ const Cancion = (props) => {
             {/* ZONA DE REPRODUCCIÓN: Al hacer clic en la imagen, suena la música */}
             <div className="contenedor-imagen" onClick={manejarReproduccion} style={{ cursor: 'pointer' }}>
                 <img
-                    src={portada}
+                    src={portadaProcesada}
                     alt="Imagen Cancion"
                     onError={(e) => (e.target.src = imagenPorDefecto)}
                 />
@@ -60,9 +62,9 @@ const Cancion = (props) => {
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className='avatar-usuario-cancion'>
-                            {usuario?.avatar ? (
+                            {avatarProcesado ? (
                                 <img
-                                    src={usuario.avatar}
+                                    src={avatarProcesado}
                                     alt={usuario?.nombre || 'Usuario'}
                                     onError={(e) => {
                                         e.target.style.display = 'none';

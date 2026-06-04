@@ -5,11 +5,9 @@ import useApiPut from "../../hooks/Cancion/useApiPut.js";
 import { contextoMusica } from "../../contexts/ProveedorMusica.jsx";
 import { contextoNotificaciones } from "../../contexts/ProveedorNotificaciones.jsx";
 import { useAuth } from "../../contexts/ProveedorAuth.jsx";
-import { generarPortadaPlaceholder } from "../../utils/imagen.js";
+import { generarPortadaPlaceholder, resolverRutaArchivo } from "../../utils/imagen.js";
 import PortadaPorDefecto from "../../assets/portada-default.jpg";
 import "./DetallesPlaylist.css";
-
-const URL_STORAGE = "/storage/";
 
 const DetallesPlaylist = ({ playlistBuscada }) => {
     const { reproducirTrack, trackActual, isPlaying } = useContext(contextoMusica);
@@ -37,8 +35,7 @@ const DetallesPlaylist = ({ playlistBuscada }) => {
 
     const resolverPortada = (img) => {
         if (!img) return PortadaPorDefecto;
-        if (img.startsWith('http://') || img.startsWith('https://')) return img;
-        return `${URL_STORAGE}${img.startsWith('/') ? img.substring(1) : img}`;
+        return resolverRutaArchivo(img) || PortadaPorDefecto;
     };
 
     // Desasignar canción de playlist

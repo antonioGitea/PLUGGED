@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PortadaPorDefecto from "../../assets/portada-default.jpg";
+import { resolverRutaArchivo } from "../../utils/imagen.js";
 import "./DetallesSoftware.css";
-
-const URL_STORAGE = "/storage/";
 
 const obtenerImagen = (ruta) => {
     if (!ruta) return PortadaPorDefecto;
-    if (ruta.startsWith('http://') || ruta.startsWith('https://')) return ruta;
-    return `${URL_STORAGE}${ruta.startsWith('/') ? ruta.substring(1) : ruta}`;
+    return resolverRutaArchivo(ruta) || PortadaPorDefecto;
 };
 
 const DetallesSoftware = ({ swBuscado }) => {

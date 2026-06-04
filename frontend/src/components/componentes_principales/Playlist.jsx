@@ -1,20 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
-import { generarPortadaPlaceholder } from "../../utils/imagen.js";
+import { generarPortadaPlaceholder, resolverRutaArchivo } from "../../utils/imagen.js";
 import "./Playlist.css";
 
 const Playlist = (props) => {
     const { id, titulo, portada, usuario } = props.datosPlaylist;
     const imagenPorDefecto = generarPortadaPlaceholder(titulo || 'Playlist');
+    const portadaProcesada = resolverRutaArchivo(portada) || imagenPorDefecto;
+    const avatarProcesado = resolverRutaArchivo(usuario?.avatar);
 
     return (
         <>
             <article className='tarjeta-playlist' id={id ? id : crypto.randomUUID()}>
                 <div className="contenedor-imagen-playlist" style={{ position: 'relative' }}>
-                    {portada ? (
+                    {portadaProcesada ? (
                         <img
-                            src={portada}
+                            src={portadaProcesada}
                             alt="Imagen Playlist"
                             className="imagen-playlist"
                             onError={(e) => {
@@ -34,7 +36,7 @@ const Playlist = (props) => {
                             width: '100%',
                             height: '100%',
                             borderRadius: '6px',
-                            display: portada ? 'none' : 'block'
+                            display: portadaProcesada ? 'none' : 'block'
                         }}
                     />
                 </div>
@@ -49,9 +51,9 @@ const Playlist = (props) => {
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className='avatar-usuario-playlist'>
-                            {usuario?.avatar ? (
+                            {avatarProcesado ? (
                                 <img
-                                    src={usuario.avatar}
+                                    src={avatarProcesado}
                                     alt={usuario?.nombre || 'Usuario'}
                                     onError={(e) => {
                                         e.target.style.display = 'none';
