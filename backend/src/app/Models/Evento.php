@@ -79,7 +79,12 @@ class Evento extends Model
     protected function imagen(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : null,
+            get: fn ($value) => {
+                if (!$value) return null;
+                if (str_starts_with($value, 'http')) return $value;
+                if (str_contains($value, '/storage/')) return $value;
+                return '/storage/' . ltrim($value, '/');
+            },
         );
     }
 

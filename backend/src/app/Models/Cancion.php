@@ -66,7 +66,18 @@ class Cancion extends Model
     protected function ubicacion(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : null,
+            get: fn($value) => {
+                if (!$value) return null;
+                if (str_starts_with($value, 'http')) return $value;
+                // Si ya tiene /storage/, devolverlo sin procesar
+                if (str_contains($value, '/storage/')) return $value;
+                // Si está en audios/ o portadas/, devolverlo con /storage/ al inicio
+                if (str_starts_with($value, 'portadas/') || str_starts_with($value, 'audios/')) {
+                    return '/storage/' . $value;
+                }
+                // Fallback: agregar /storage/ al inicio sin duplicar
+                return '/storage/' . ltrim($value, '/');
+            },
         );
     }
 
@@ -81,7 +92,18 @@ class Cancion extends Model
     protected function portada(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : '/assets/portada-default.jpg',
+            get: fn($value) => {
+                if (!$value) return '/assets/portada-default.jpg';
+                if (str_starts_with($value, 'http')) return $value;
+                // Si ya tiene /storage/, devolverlo sin procesar
+                if (str_contains($value, '/storage/')) return $value;
+                // Si está en audios/ o portadas/, devolverlo con /storage/ al inicio
+                if (str_starts_with($value, 'portadas/') || str_starts_with($value, 'audios/')) {
+                    return '/storage/' . $value;
+                }
+                // Fallback: agregar /storage/ al inicio sin duplicar
+                return '/storage/' . ltrim($value, '/');
+            },
         );
     }
 

@@ -95,7 +95,15 @@ class Usuario extends Authenticatable
     protected function avatar(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : null,
+            get: fn($value) => {
+                if (!$value) return null;
+                if (str_starts_with($value, 'http')) return $value;
+                if (str_contains($value, '/storage/')) return $value;
+                if (str_starts_with($value, 'avatars/') || str_starts_with($value, 'storage/')) {
+                    return '/storage/' . ltrim($value, '/');
+                }
+                return '/storage/' . ltrim($value, '/');
+            },
         );
     }
 
@@ -110,7 +118,15 @@ class Usuario extends Authenticatable
     protected function banner(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : null,
+            get: fn($value) => {
+                if (!$value) return null;
+                if (str_starts_with($value, 'http')) return $value;
+                if (str_contains($value, '/storage/')) return $value;
+                if (str_starts_with($value, 'banners/') || str_starts_with($value, 'storage/')) {
+                    return '/storage/' . ltrim($value, '/');
+                }
+                return '/storage/' . ltrim($value, '/');
+            },
         );
     }
 
