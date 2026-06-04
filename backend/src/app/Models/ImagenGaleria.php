@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -38,6 +39,20 @@ class ImagenGaleria extends Model
 
     protected $table = 'galeria_usuario';
     protected $fillable = ['id_usuario', 'imagen'];
+
+    protected function imagen(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (!$value) return null;
+                if (str_starts_with($value, 'http')) return $value;
+                if (str_starts_with($value, '/storage/')) return $value;
+                if (str_starts_with($value, 'storage/')) return '/' . $value;
+                if (str_starts_with($value, 'galeria/')) return '/storage/' . $value;
+                return '/storage/' . ltrim($value, '/');
+            },
+        );
+    }
 
     /**
      * Obtiene el usuario propietario de esta imagen de galería.

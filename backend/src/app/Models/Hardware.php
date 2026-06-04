@@ -54,7 +54,7 @@ class Hardware extends Model
             get: function ($value) {
                 if (!$value) return null;
                 if (str_starts_with($value, 'http')) return $value;
-                if (str_contains($value, '/storage/')) return $value;
+                if (str_starts_with($value, '/storage/')) return $value;
                 if (str_starts_with($value, 'storage/')) return '/' . $value;
                 return '/storage/' . ltrim($value, '/');
             },

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -50,6 +51,20 @@ class Playlist extends Model
         'id_usuario',
         'protegida'
     ];
+
+    protected function portada(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (!$value) return null;
+                if (str_starts_with($value, 'http')) return $value;
+                if (str_starts_with($value, '/storage/')) return $value;
+                if (str_starts_with($value, 'storage/')) return '/' . $value;
+                if (str_starts_with($value, 'portadas/')) return '/storage/' . $value;
+                return '/storage/' . ltrim($value, '/');
+            },
+        );
+    }
 
     /**
      * Obtiene todas las canciones de la playlist con orden personalizado.
