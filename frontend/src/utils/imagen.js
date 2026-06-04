@@ -21,11 +21,14 @@ export const resolverRutaArchivo = (ruta) => {
     if (!ruta) return null;
     if (ruta.startsWith('http://') || ruta.startsWith('https://')) return ruta;
 
+    // Si ya empieza con /storage/, devolverlo tal cual
+    if (ruta.startsWith('/storage/')) return ruta;
+
     // Normalizar ruta (eliminar / inicial si existe)
     const rutaNormalizada = ruta.replace(/^\/?/, '');
 
-    // Si ya contiene /storage/, no agregar de nuevo
-    if (rutaNormalizada.includes('/storage/')) {
+    // Si ya contiene storage/, significa que empieza con storage/ (sin la /)
+    if (rutaNormalizada.startsWith('storage/')) {
         return `/${rutaNormalizada}`;
     }
 
