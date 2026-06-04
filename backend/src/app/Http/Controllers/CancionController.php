@@ -135,17 +135,25 @@ class CancionController extends Controller
 
         // Paso 2: Procesar archivo de audio
         if ($request->hasFile('archivo')) {
-            $rutaAudio = $request->file('archivo')->store('audios', 'public');
-            $cancion->ubicacion = $rutaAudio;
-            Log::info('📀 Audio guardado:', ['ruta' => $rutaAudio]);
+            try {
+                $archivo = $request->file('archivo');
+                $nombreAudio = time() . '_' . uniqid() . '.' . $archivo->getClientOriginalExtension();
+                $rutaAudio = Storage::disk('public')->putFileAs('audios', $archivo, $nombreAudio);
+                $cancion->ubicacion = $rutaAudio;
+                Log::info('📀 Audio guardado:', ['ruta' => $rutaAudio, 'nombre' => $nombreAudio]);
+            } catch (\Exception $e) {
+                Log::error('📀 Error al guardar audio:', ['error' => $e->getMessage()]);
+            }
         }
 
         // Paso 3: Procesar archivo de portada
         if ($request->hasFile('portada')) {
             try {
-                $rutaPortada = $request->file('portada')->store('portadas', 'public');
+                $portada = $request->file('portada');
+                $nombrePortada = time() . '_' . uniqid() . '.' . $portada->getClientOriginalExtension();
+                $rutaPortada = Storage::disk('public')->putFileAs('portadas', $portada, $nombrePortada);
                 $cancion->portada = $rutaPortada;
-                Log::info('📀 Portada guardada:', ['ruta' => $rutaPortada]);
+                Log::info('📀 Portada guardada:', ['ruta' => $rutaPortada, 'nombre' => $nombrePortada]);
             } catch (\Exception $e) {
                 Log::error('📀 Error al guardar portada:', ['error' => $e->getMessage()]);
             }
