@@ -1,7 +1,21 @@
 :80 {
-    root * /var/www/src/public
-    encode gzip zstd
+    # Storage -> Archivos públicos (portadas, avatares, audios, etc)
+    handle /storage/* {
+        root * /var/www
+        file_server
+    }
 
-    php_fastcgi php:9000
+    # API y rutas dinámicas -> PHP
+    @notStatic {
+        not path /assets/*
+    }
+    handle @notStatic {
+        root * /var/www/public
+        php_fastcgi php:9000
+    }
+
+    # Assets (CSS, JS, etc) -> Sin procesamiento PHP
+    root * /var/www/public
+    encode gzip zstd
     file_server
 }
