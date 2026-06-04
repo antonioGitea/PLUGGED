@@ -9,6 +9,7 @@ services:
     volumes:
       - ./backend/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./backend/src:/var/www
+      - ./backend/src/storage:/var/www/storage
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
