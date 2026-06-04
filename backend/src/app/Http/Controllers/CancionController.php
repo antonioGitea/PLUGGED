@@ -138,11 +138,19 @@ class CancionController extends Controller
             try {
                 $archivo = $request->file('archivo');
                 $nombreAudio = time() . '_' . uniqid() . '.' . $archivo->getClientOriginalExtension();
-                $rutaAudio = Storage::disk('public')->putFileAs('audios', $archivo, $nombreAudio);
-                $cancion->ubicacion = $rutaAudio;
-                Log::info('📀 Audio guardado:', ['ruta' => $rutaAudio, 'nombre' => $nombreAudio]);
+                $rutaRelativa = 'audios/' . $nombreAudio;
+                $rutaAbsoluta = storage_path('app/public/audios/' . $nombreAudio);
+
+                // Crear directorio si no existe
+                @mkdir(dirname($rutaAbsoluta), 0775, true);
+
+                // Guardar archivo
+                $archivo->move(dirname($rutaAbsoluta), $nombreAudio);
+
+                $cancion->ubicacion = $rutaRelativa;
+                Log::info('📀 Audio guardado:', ['ruta' => $rutaRelativa, 'archivo' => $nombreAudio]);
             } catch (\Exception $e) {
-                Log::error('📀 Error al guardar audio:', ['error' => $e->getMessage()]);
+                Log::error('📀 Error al guardar audio:', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
             }
         }
 
@@ -151,11 +159,19 @@ class CancionController extends Controller
             try {
                 $portada = $request->file('portada');
                 $nombrePortada = time() . '_' . uniqid() . '.' . $portada->getClientOriginalExtension();
-                $rutaPortada = Storage::disk('public')->putFileAs('portadas', $portada, $nombrePortada);
-                $cancion->portada = $rutaPortada;
-                Log::info('📀 Portada guardada:', ['ruta' => $rutaPortada, 'nombre' => $nombrePortada]);
+                $rutaRelativa = 'portadas/' . $nombrePortada;
+                $rutaAbsoluta = storage_path('app/public/portadas/' . $nombrePortada);
+
+                // Crear directorio si no existe
+                @mkdir(dirname($rutaAbsoluta), 0775, true);
+
+                // Guardar archivo
+                $portada->move(dirname($rutaAbsoluta), $nombrePortada);
+
+                $cancion->portada = $rutaRelativa;
+                Log::info('📀 Portada guardada:', ['ruta' => $rutaRelativa, 'archivo' => $nombrePortada]);
             } catch (\Exception $e) {
-                Log::error('📀 Error al guardar portada:', ['error' => $e->getMessage()]);
+                Log::error('📀 Error al guardar portada:', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
             }
         } else {
             Log::info('📀 No se envió portada');
