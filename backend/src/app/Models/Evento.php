@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * Evento - Modelo de eventos musicales
@@ -66,6 +67,21 @@ class Evento extends Model
         'longitud' => 'decimal:8',     // Precisión de 8 decimales para coordenadas
         'fecha_evento' => 'date',      // Convertir a instancia Carbon (YYYY-MM-DD)
     ];
+
+    /**
+     * Acceso para obtener la URL completa de la imagen del evento.
+     *
+     * Convierte la ruta almacenada en storage a una URL pública.
+     * Si no hay imagen, retorna null.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute Atributo con getter
+     */
+    protected function imagen(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value ? (str_starts_with($value, '/storage/') ? $value : '/storage/' . $value) : null,
+        );
+    }
 
     /**
      * Obtiene los usuarios propietarios/creadores del evento

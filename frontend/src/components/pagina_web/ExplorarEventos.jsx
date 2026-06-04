@@ -140,9 +140,10 @@ const ExplorarEventos = () => {
             });
 
             // Crear popup con imagen correcta
-            const imagenUrl = evento.imagen?.startsWith('http')
+            // El backend devuelve /storage/... directamente desde el accessor
+            const imagenUrl = evento.imagen?.startsWith('http') || evento.imagen?.startsWith('/storage')
                 ? evento.imagen
-                : `/storage/${evento.imagen}`;
+                : (evento.imagen ? `/storage/${evento.imagen}` : null);
 
             const popup = new maplibregl.Popup({
                 offset: [30, 0],
