@@ -1,21 +1,20 @@
 :80 {
     # Storage -> Archivos públicos (portadas, avatares, audios, etc)
     handle /storage/* {
-        root * /var/www
+        root * /var/www/storage/app/public
         file_server
     }
 
-    # API y rutas dinámicas -> PHP
-    @notStatic {
-        not path /assets/*
-    }
-    handle @notStatic {
+    # API -> PHP
+    handle /api/* {
         root * /var/www/public
         php_fastcgi php:9000
     }
 
-    # Assets (CSS, JS, etc) -> Sin procesamiento PHP
-    root * /var/www/public
-    encode gzip zstd
-    file_server
+    # SPA Frontend -> Dist con fallback a index.html
+    handle {
+        root * /var/www/public/dist
+        try_files {path} /index.html
+        file_server
+    }
 }
