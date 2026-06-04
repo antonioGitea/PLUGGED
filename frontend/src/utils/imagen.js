@@ -21,18 +21,24 @@ export const resolverRutaArchivo = (ruta) => {
     if (!ruta) return null;
     if (ruta.startsWith('http://') || ruta.startsWith('https://')) return ruta;
 
-    // Si ya empieza con /storage/, devolverlo tal cual
+    // PROTECCIÓN: Si ya empieza con /storage/, devolverlo sin procesar
     if (ruta.startsWith('/storage/')) return ruta;
+
+    // PROTECCIÓN: Detectar duplicación - si tiene /storage/storage/
+    if (ruta.includes('/storage/storage/')) {
+        // Limpiar la duplicación
+        return ruta.replace('/storage/storage/', '/storage/');
+    }
 
     // Normalizar ruta (eliminar / inicial si existe)
     const rutaNormalizada = ruta.replace(/^\/?/, '');
 
-    // Si ya contiene storage/, significa que empieza con storage/ (sin la /)
+    // Si empieza con storage/ (caso de datos corruptos)
     if (rutaNormalizada.startsWith('storage/')) {
         return `/${rutaNormalizada}`;
     }
 
-    // Agregar /storage/ si no está presente (archivos del sistema)
+    // Agregar /storage/ si no está presente
     return `/storage/${rutaNormalizada}`;
 };
 

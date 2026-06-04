@@ -38,19 +38,22 @@ class BuscadorController extends Controller
 
         // Buscar canciones
         $canciones = Cancion::where('titulo', 'LIKE', "%{$q}%")
-            ->select('id', 'titulo', 'tonalidad', 'id_usuario')
+            ->select('id', 'titulo', 'portada', 'tonalidad', 'id_usuario')
+            ->with('usuario:id,nombre,nick,avatar')
             ->limit(5)
             ->get();
 
         // Buscar colecciones
         $colecciones = Coleccion::where('titulo', 'LIKE', "%{$q}%")
-            ->select('id', 'titulo', 'tipo', 'id_usuario')
+            ->select('id', 'titulo', 'portada', 'tipo', 'id_usuario')
+            ->with('usuario:id,nombre,nick,avatar')
             ->limit(5)
             ->get();
 
         // Buscar playlists
         $playlists = Playlist::where('titulo', 'LIKE', "%{$q}%")
-            ->select('id', 'titulo', 'id_usuario')
+            ->select('id', 'titulo', 'portada', 'id_usuario')
+            ->with('usuario:id,nombre,nick,avatar')
             ->limit(5)
             ->get();
 
