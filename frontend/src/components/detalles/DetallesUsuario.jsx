@@ -23,12 +23,13 @@ import useApiDelete_Cancion from "../../hooks/Cancion/UseApiDelete.js";
 
 import "./DetallesUsuario.css";
 
-const URL_STORAGE = "/storage/";
-
 const obtenerImagen = (ruta) => {
     if (!ruta) return null;
     if (ruta.startsWith('http://') || ruta.startsWith('https://')) return ruta;
-    return `${URL_STORAGE}${ruta.startsWith('/') ? ruta.substring(1) : ruta}`;
+    // Si ya tiene /storage/, devolverlo tal cual
+    if (ruta.startsWith('/storage/')) return ruta;
+    // Si no tiene /storage/, agregarlo
+    return `/storage/${ruta.startsWith('/') ? ruta.substring(1) : ruta}`;
 };
 
 const DetallesUsuario = ({ datosUsuario, refrescarTodo }) => {
