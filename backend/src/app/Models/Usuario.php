@@ -99,8 +99,11 @@ class Usuario extends Authenticatable
                 if (!$value) return null;
                 if (str_starts_with($value, 'http')) return $value;
                 if (str_contains($value, '/storage/')) return $value;
-                if (str_starts_with($value, 'avatars/') || str_starts_with($value, 'storage/')) {
-                    return '/storage/' . ltrim($value, '/');
+                if (str_starts_with($value, 'storage/')) {
+                    return '/' . $value;
+                }
+                if (str_starts_with($value, 'avatars/')) {
+                    return '/storage/' . $value;
                 }
                 return '/storage/' . ltrim($value, '/');
             },
@@ -122,8 +125,11 @@ class Usuario extends Authenticatable
                 if (!$value) return null;
                 if (str_starts_with($value, 'http')) return $value;
                 if (str_contains($value, '/storage/')) return $value;
-                if (str_starts_with($value, 'banners/') || str_starts_with($value, 'storage/')) {
-                    return '/storage/' . ltrim($value, '/');
+                if (str_starts_with($value, 'storage/')) {
+                    return '/' . $value;
+                }
+                if (str_starts_with($value, 'banners/')) {
+                    return '/storage/' . $value;
                 }
                 return '/storage/' . ltrim($value, '/');
             },

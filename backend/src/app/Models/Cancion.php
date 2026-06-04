@@ -97,6 +97,10 @@ class Cancion extends Model
                 if (str_starts_with($value, 'http')) return $value;
                 // Si ya tiene /storage/, devolverlo sin procesar
                 if (str_contains($value, '/storage/')) return $value;
+                // Si empieza con storage/ (sin la /), agregar /storage/ al inicio
+                if (str_starts_with($value, 'storage/')) {
+                    return '/' . $value;
+                }
                 // Si está en audios/ o portadas/, devolverlo con /storage/ al inicio
                 if (str_starts_with($value, 'portadas/') || str_starts_with($value, 'audios/')) {
                     return '/storage/' . $value;
