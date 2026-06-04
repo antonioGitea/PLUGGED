@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { FaUser } from "react-icons/fa";
 import { contextoMusica } from "../../contexts/ProveedorMusica.jsx";
 import { contextoNotificaciones } from "../../contexts/ProveedorNotificaciones.jsx";
-import { generarPortadaPlaceholder } from "../../utils/imagen.js";
+import { generarPortadaPlaceholder, resolverRutaArchivo } from "../../utils/imagen.js";
 import { useLike } from "../../hooks/Cancion/useLike.js";
 import { useComentarios } from "../../hooks/Cancion/useComentarios.js";
 import ReproductorDetalles from "./ReproductorDetalles.jsx";
@@ -215,7 +215,7 @@ const DetallesCancion = ({ cancionBuscada }) => {
                 <div>
                     <div className="portada-grande">
                         <img
-                            src={portada || imagenPorDefecto}
+                            src={resolverRutaArchivo(portada) || imagenPorDefecto}
                             alt=""
                             onError={(e) => (e.target.src = imagenPorDefecto)}
                         />
@@ -339,7 +339,7 @@ const DetallesCancion = ({ cancionBuscada }) => {
                                             <div className="colaborador-avatar-container">
                                                 {!avataresFallidos[colab.id] && colab.avatar ? (
                                                     <img
-                                                        src={colab.avatar}
+                                                        src={resolverRutaArchivo(colab.avatar)}
                                                         alt={colab.nick}
                                                         className="colaborador-avatar"
                                                         onError={() => setAvataresFallidos(prev => ({...prev, [colab.id]: true}))}
@@ -398,7 +398,7 @@ const DetallesCancion = ({ cancionBuscada }) => {
                             {comentarios.map((comentario) => (
                                 <div key={comentario.id} className="comentario-item">
                                     <img
-                                        src={comentario.usuario.avatar}
+                                        src={resolverRutaArchivo(comentario.usuario.avatar)}
                                         alt={comentario.usuario.nombre}
                                     />
                                     <div className="comentario-contenido">

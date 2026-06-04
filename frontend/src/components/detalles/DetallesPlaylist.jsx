@@ -110,7 +110,7 @@ const DetallesPlaylist = ({ playlistBuscada }) => {
                                 <Link to={`/mostrar/usuario/${usuario.id}`} className="sc-col-artist-link">
                                     {usuario?.avatar && (
                                         <img
-                                            src={usuario.avatar}
+                                            src={resolverRutaArchivo(usuario.avatar)}
                                             alt={usuario?.nick || 'Usuario'}
                                             className="sc-col-artist-avatar"
                                             onError={(e) => (e.target.style.display = 'none')}

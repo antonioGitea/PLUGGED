@@ -110,7 +110,7 @@ const DetallesColeccion = ({ coleccionBuscada }) => {
                                     <Link to={`/mostrar/usuario/${usuario.id}`} className="sc-col-artist-link">
                                         {usuario?.avatar && (
                                             <img
-                                                src={usuario.avatar}
+                                                src={resolverRutaArchivo(usuario.avatar)}
                                                 alt={usuario?.nick || 'Usuario'}
                                                 className="sc-col-artist-avatar"
                                                 onError={(e) => (e.target.style.display = 'none')}
@@ -129,7 +129,7 @@ const DetallesColeccion = ({ coleccionBuscada }) => {
                                         <Link key={colab.id} to={`/mostrar/usuario/${colab.id}`} className="sc-col-colaborador-item">
                                             {!avataresFallidos[colab.id] && colab.avatar ? (
                                                 <img
-                                                    src={colab.avatar}
+                                                    src={resolverRutaArchivo(colab.avatar)}
                                                     alt={colab.nick}
                                                     className="sc-col-colab-avatar"
                                                     onError={() => setAvataresFallidos(prev => ({...prev, [colab.id]: true}))}
