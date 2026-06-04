@@ -24,7 +24,8 @@ services:
     working_dir: /var/www
     volumes:
       - ./backend/src:/var/www
-      - storage_data:/var/www/storage
+      - ./backend/src/storage:/var/www/storage
+      - ./backend/src/public:/var/www/public
     depends_on:
       - db
     restart: unless-stopped
@@ -52,4 +53,3 @@ volumes:
   db_data:
   caddy_data:
   caddy_config:
-  storage_data:
