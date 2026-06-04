@@ -95,7 +95,7 @@ class Usuario extends Authenticatable
     protected function avatar(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => {
+            get: function($value) {
                 if (!$value) return null;
                 if (str_starts_with($value, 'http')) return $value;
                 if (str_contains($value, '/storage/')) return $value;
@@ -118,7 +118,7 @@ class Usuario extends Authenticatable
     protected function banner(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => {
+            get: function($value) {
                 if (!$value) return null;
                 if (str_starts_with($value, 'http')) return $value;
                 if (str_contains($value, '/storage/')) return $value;

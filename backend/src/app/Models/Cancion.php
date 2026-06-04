@@ -66,7 +66,7 @@ class Cancion extends Model
     protected function ubicacion(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => {
+            get: function($value) {
                 if (!$value) return null;
                 if (str_starts_with($value, 'http')) return $value;
                 // Si ya tiene /storage/, devolverlo sin procesar
@@ -92,7 +92,7 @@ class Cancion extends Model
     protected function portada(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => {
+            get: function($value) {
                 if (!$value) return '/assets/portada-default.jpg';
                 if (str_starts_with($value, 'http')) return $value;
                 // Si ya tiene /storage/, devolverlo sin procesar
