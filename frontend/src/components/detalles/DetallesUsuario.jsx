@@ -14,7 +14,7 @@ import SubirEvento from "../SubirEvento.jsx";
 import EditarPerfil from "../EditarPerfil.jsx";
 import GestionarEquipamiento from "../GestionarEquipamiento.jsx";
 import { useFollow } from "../../hooks/Auth/useFollow.js";
-import { resolverRutaArchivo as resolverRutaArchivoUtil, generarAvatarDicebear, generarPortadaPlaceholder, generarColoresDesdeString } from "../../utils/imagen.js";
+import { resolverRutaArchivo, generarAvatarDicebear, generarPortadaPlaceholder, generarColoresDesdeString } from "../../utils/imagen.js";
 import useApiPost_Galeria from "../../hooks/Galeria/useApiPost.js";
 import useApiDelete_Galeria from "../../hooks/Galeria/useApiDelete.js";
 import useApiDelete_Coleccion from "../../hooks/Coleccion/useApiDelete.js";
